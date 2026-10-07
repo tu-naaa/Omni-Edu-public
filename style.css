@@ -37,3 +37,10 @@
 .hero-card-inner{width:100%;padding:24px}.loop{gap:7px}.loop span{padding:8px 10px;font-size:12px}.loop-note{margin-left:auto;margin-right:auto}
 @media(max-width:560px){.hero h1{font-size:42px}.loop{gap:6px}.hero-card-inner{padding:18px}}
 .authors .author{white-space:nowrap;color:#fff}
+
+/* BF16 and FP8 releases */
+.release-note{padding:16px 20px;margin:0 0 24px;border:1px solid #dce0ec;border-left:4px solid var(--blue);border-radius:10px;background:var(--tint);font-size:14px}
+.release-note strong{display:block;margin-bottom:4px}.release-note a{color:#4149bb;text-decoration:underline;text-underline-offset:3px}
+.model-downloads{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:18px}
+.weight-saving{display:block;margin-top:16px;font-size:12px;color:var(--muted)}
+#fp8-results{scroll-margin-top:24px}

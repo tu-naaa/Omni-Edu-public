@@ -27,7 +27,7 @@
       <div>
         <div class="eyebrow">ARXIV 2609.23088 · SEPTEMBER 2026</div>
         <h1>Know the curriculum.<br><em>Teach the next step.</em></h1>
-        <p class="lead">OmniEdu: Open Foundation Models for Learning and Teaching. Three released multimodal models—4B, 9B, and 27B—connect curriculum knowledge, problem solving, learner diagnosis, and instructional support.</p>
+        <p class="lead">OmniEdu: Open Foundation Models for Learning and Teaching. Three multimodal model scales—4B, 9B, and 27B, now in BF16 and FP8—connect curriculum knowledge, problem solving, learner diagnosis, and instructional support.</p>
         <div class="actions">
           <a class="button primary" href="#models">Get the models</a>
           <a class="button light" href="https://huggingface.co/datasets/lhpku20010120/Omni-Edu">Get the dataset</a>
@@ -57,12 +57,14 @@
     <section id="models" class="section wrap">
       <div class="section-kicker">01 / OPEN MODEL FAMILY</div>
       <h2>Choose your scale.<br>Start building.</h2>
-      <p class="section-intro">Download the weights, explore the training data, and run OmniEdu with Transformers or vLLM. All three scales use a 32,768-token training sequence length.</p>
+      <p class="section-intro">BF16 originals and FP8 releases at every scale. FP8 cuts weight downloads by 37%–44%. All three scales use a 32,768-token training sequence length.</p>
+      <p class="release-note"><strong>October 2026 · FP8 release</strong> Six checkpoints, with quantized results and deployment examples. <a href="#fp8-results">Compare BF16 and FP8 ↓</a></p>
       <div class="model-grid">
-        <article class="model-card"><span class="model-scale">4B</span><h3>OmniEdu-4B</h3><p>Our smallest checkpoint for local experimentation.</p><a href="https://huggingface.co/lhpku20010120/Omni-Edu-4B">Download checkpoint ↗</a></article>
-        <article class="model-card"><span class="model-scale">9B</span><h3>OmniEdu-9B</h3><p>The middle scale for education applications.</p><a href="https://huggingface.co/lhpku20010120/Omni-Edu-9B">Download checkpoint ↗</a></article>
-        <article class="model-card"><span class="model-scale">27B</span><h3>OmniEdu-27B</h3><p>Our strongest overall results across the education evaluations.</p><a href="https://huggingface.co/lhpku20010120/Omni-Edu-27B">Download checkpoint ↗</a></article>
+        <article class="model-card"><span class="model-scale">4B</span><h3>OmniEdu-4B</h3><p>Our smallest checkpoint for local experimentation.</p><div class="model-downloads"><a href="https://huggingface.co/lhpku20010120/Omni-Edu-4B">BF16 · 8.46 GiB ↗</a><a href="https://huggingface.co/lhpku20010120/Omni-Edu-4B-FP8">FP8 · 5.14 GiB ↗</a></div><span class="weight-saving">39% smaller weight download with FP8</span></article>
+        <article class="model-card"><span class="model-scale">9B</span><h3>OmniEdu-9B</h3><p>The middle scale for education applications.</p><div class="model-downloads"><a href="https://huggingface.co/lhpku20010120/Omni-Edu-9B">BF16 · 17.53 GiB ↗</a><a href="https://huggingface.co/lhpku20010120/Omni-Edu-9B-FP8">FP8 · 11.09 GiB ↗</a></div><span class="weight-saving">37% smaller weight download with FP8</span></article>
+        <article class="model-card"><span class="model-scale">27B</span><h3>OmniEdu-27B</h3><p>Our strongest overall results across the education evaluations.</p><div class="model-downloads"><a href="https://huggingface.co/lhpku20010120/Omni-Edu-27B">BF16 · 50.96 GiB ↗</a><a href="https://huggingface.co/lhpku20010120/Omni-Edu-27B-FP8">FP8 · 28.30 GiB ↗</a></div><span class="weight-saving">44% smaller weight download with FP8</span></article>
       </div>
+      <p class="data-note">Sizes are summed safetensors downloads, checked October 7, 2026. Runtime GPU memory also includes caches, activations, and serving overhead. FP8 preserves the vision tower, linear-attention gating projections, and output head in their original precision.</p>
       <p class="data-note">Trained on <b>60,951 education-specific</b> and <b>9,048 general-purpose</b> examples from more than 100 sources. <a href="https://huggingface.co/datasets/lhpku20010120/Omni-Edu">Explore the dataset ↗</a></p>
     </section>
 
@@ -414,8 +416,37 @@
 </tr>
 </tbody></table></div>
 </details>
-        <p class="table-note">Scores reproduce arXiv v1 (Tables 1–3); higher is better. Values are percentages except LongTutor-T, which uses the original teaching-score scale. MathTutor-S / SH denote Scaffold / Scaffold-hard win rates; LongTutor-E / T denote Evidence / Teaching averages. The five education-specific baselines and GLM-5.3 receive text-only inputs on image-dependent examples, as described in the paper. Rankings apply to the evaluation protocol reported in the paper. <a href="https://arxiv.org/html/2609.23088v1#S4">Evaluation protocol ↗</a></p>
-        <div class="general-head"><h3>General capabilities remain strong.</h3><p>All three sizes improve on the selected metrics below after educational fine-tuning. Individual submetrics can be flat or decline; the appendix reports the full breakdown.</p></div>
+        <p class="table-note">OmniEdu entries use the original BF16 checkpoints. Scores reproduce arXiv v1 (Tables 1–3); higher is better. Values are percentages except LongTutor-T, which uses the original teaching-score scale. MathTutor-S / SH denote Scaffold / Scaffold-hard win rates; LongTutor-E / T denote Evidence / Teaching averages. The five education-specific baselines and GLM-5.3 receive text-only inputs on image-dependent examples, as described in the paper. Rankings apply to the evaluation protocol reported in the paper. <a href="https://arxiv.org/html/2609.23088v1#S4">Evaluation protocol ↗</a></p>
+        <div id="fp8-results" class="general-head"><h3>Smaller weights. Benchmark by benchmark.</h3><p>Compare the BF16 originals with the published FP8 results at every scale. These model-card results are separate from the paper's 16-model ranking; scores can increase or decrease after quantization.</p></div>
+        <details class="benchmark" open><summary>FP8 · Curriculum grounding<span>3 scales · BF16 vs. FP8</span></summary>
+<div class="table-scroll" role="region" aria-label="FP8 Curriculum grounding comparison" tabindex="0"><table data-fp8-table="Curriculum grounding"><caption>Curriculum grounding · BF16 / FP8</caption><thead><tr><th scope="col">Model</th><th scope="col">K12-Bench EM</th><th scope="col">K12-Bench F1</th><th scope="col">MathFish Acc.</th><th scope="col">EDUMATH MaC</th></tr></thead><tbody>
+<tr><th scope="row">OmniEdu-4B BF16</th><td>54.25%</td><td>71.75%</td><td>83.19%</td><td>68.40%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-4B FP8</th><td>53.69%</td><td>70.94%</td><td>82.26%</td><td>67.64%</td></tr>
+<tr><th scope="row">OmniEdu-9B BF16</th><td>55.46%</td><td>73.68%</td><td>83.70%</td><td>74.00%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-9B FP8</th><td>55.62%</td><td>73.45%</td><td>81.77%</td><td>73.77%</td></tr>
+<tr><th scope="row">OmniEdu-27B BF16</th><td>63.12%</td><td>76.69%</td><td>85.89%</td><td>86.95%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-27B FP8</th><td>63.16%</td><td>76.59%</td><td>85.13%</td><td>86.84%</td></tr>
+</tbody></table></div></details>
+        <details class="benchmark" open><summary>FP8 · K–12 problem solving<span>3 scales · BF16 vs. FP8</span></summary>
+<div class="table-scroll" role="region" aria-label="FP8 K–12 problem solving comparison" tabindex="0"><table data-fp8-table="K–12 problem solving"><caption>K–12 problem solving · BF16 / FP8</caption><thead><tr><th scope="col">Model</th><th scope="col">GAOKAO-Bench Full</th><th scope="col">EXAMS-V Overall</th><th scope="col">MDK12-Bench Full</th></tr></thead><tbody>
+<tr><th scope="row">OmniEdu-4B BF16</th><td>90.46%</td><td>57.62%</td><td>46.36%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-4B FP8</th><td>89.47%</td><td>57.14%</td><td>47.30%</td></tr>
+<tr><th scope="row">OmniEdu-9B BF16</th><td>93.66%</td><td>66.40%</td><td>50.80%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-9B FP8</th><td>91.09%</td><td>63.83%</td><td>49.20%</td></tr>
+<tr><th scope="row">OmniEdu-27B BF16</th><td>94.87%</td><td>69.52%</td><td>57.76%</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-27B FP8</th><td>95.72%</td><td>69.15%</td><td>58.81%</td></tr>
+</tbody></table></div></details>
+        <details class="benchmark" open><summary>FP8 · Pedagogical tutoring<span>3 scales · BF16 vs. FP8</span></summary>
+<div class="table-scroll" role="region" aria-label="FP8 Pedagogical tutoring comparison" tabindex="0"><table data-fp8-table="Pedagogical tutoring"><caption>Pedagogical tutoring · BF16 / FP8</caption><thead><tr><th scope="col">Model</th><th scope="col">MathTutor-S</th><th scope="col">MathTutor-SH</th><th scope="col">TutorBench</th><th scope="col">LongTutor-E</th><th scope="col">LongTutor-T</th></tr></thead><tbody>
+<tr><th scope="row">OmniEdu-4B BF16</th><td>75.79%</td><td>84.77%</td><td>46.67%</td><td>65.88%</td><td>2.29</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-4B FP8</th><td>76.63%</td><td>83.20%</td><td>46.15%</td><td>66.11%</td><td>2.30</td></tr>
+<tr><th scope="row">OmniEdu-9B BF16</th><td>75.26%</td><td>81.64%</td><td>48.16%</td><td>66.63%</td><td>2.66</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-9B FP8</th><td>78.11%</td><td>82.42%</td><td>48.01%</td><td>69.04%</td><td>2.76</td></tr>
+<tr><th scope="row">OmniEdu-27B BF16</th><td>78.74%</td><td>83.59%</td><td>59.42%</td><td>78.20%</td><td>3.02</td></tr>
+<tr class="ours"><th scope="row">OmniEdu-27B FP8</th><td>76.11%</td><td>80.08%</td><td>59.34%</td><td>78.95%</td><td>3.05</td></tr>
+</tbody></table></div></details>
+        <p class="table-note">Higher is better. Values are percentages except LongTutor-T (Teaching); LongTutor-E is Evidence. MathTutor-S / SH denote Scaffold / Scaffold-hard win rates. Shaded rows identify FP8 checkpoints. Source: <a href="https://huggingface.co/lhpku20010120/Omni-Edu-4B-FP8#evaluation">4B model card ↗</a> · <a href="https://huggingface.co/lhpku20010120/Omni-Edu-9B-FP8#evaluation">9B model card ↗</a> · <a href="https://huggingface.co/lhpku20010120/Omni-Edu-27B-FP8#evaluation">27B model card ↗</a>.</p>
+        <div class="general-head"><h3>General capabilities remain strong.</h3><p>The original BF16 checkpoints improve at all three sizes on the selected metrics below after educational fine-tuning. Individual submetrics can be flat or decline; the appendix reports the full breakdown.</p></div>
         <div class="table-scroll general-table" role="region" aria-label="General capability results" tabindex="0"><table data-paper-table="general"><caption>General capabilities · <a href="https://arxiv.org/html/2609.23088v1#S6">Detailed results ↗</a></caption><thead><tr><th scope="col">Model</th><th scope="col">IFEval Prompt Strict</th><th scope="col">GPQA Diamond</th><th scope="col">MMMU-Pro Overall</th></tr></thead><tbody>
 <tr><th scope="row">Qwen3.5-4B-Base</th><td>64.88%</td><td>58.08%</td><td>50.46%</td></tr>
 <tr class="ours"><th scope="row">OmniEdu-4B (ours)</th><td>65.06%</td><td>60.61%</td><td>52.60%</td></tr>
@@ -431,10 +462,10 @@
     <section id="deploy" class="section wrap">
       <div class="section-kicker">04 / DEPLOYMENT</div>
       <div class="deploy-grid">
-        <div><h2>From checkpoint<br>to your application.</h2><p>Start with OmniEdu-4B and serve an OpenAI-compatible endpoint using a recent vLLM release with Qwen3.5 support. Thinking is disabled to match the training template.</p><p>For 9B or 27B, change the model ID and adjust GPU parallelism. Memory needs depend on context length, concurrency, and image inputs.</p></div>
+        <div><h2>From checkpoint<br>to your application.</h2><p>Start with OmniEdu-4B-FP8 on a GPU/backend supporting block-wise FP8, using a recent vLLM release with Qwen3.5 support. The checkpoint carries its quantization configuration; thinking is disabled to match training.</p><p>For 9B or 27B, change the model ID and adjust GPU parallelism. To serve the BF16 original, remove the -FP8 suffix. Memory needs depend on context length, concurrency, and image inputs.</p></div>
         <pre><code>pip install -U vllm
 
-vllm serve lhpku20010120/Omni-Edu-4B \
+vllm serve lhpku20010120/Omni-Edu-4B-FP8 \
   --served-model-name omniedu \
   --dtype bfloat16 \
   --tensor-parallel-size 1 \
