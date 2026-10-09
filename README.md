@@ -328,6 +328,26 @@ print(train)
 
 The dataset covers curriculum grounding, problem solving, diagnosis, tutoring, and general instruction. Please follow the licenses and usage terms of the component datasets and source materials.
 
+## Code
+
+The repository also ships the pipeline that produced the models and the toolkit that runs them.
+
+| Path | What it is |
+| --- | --- |
+| `data_preparation/` | Six-stage pipeline from source collection to the released instruction mixture; every stage has its own README |
+| `training/` | LLaMA-Factory full-parameter SFT entry for 4B, 9B and 27B, validating the release before launch |
+| `sdk/` | `omniedu`, a small Python toolkit for text and image chat and for resumable JSONL batch inference |
+
+```bash
+pip install ./sdk                                  # the toolkit, installed from source
+omniedu tasks                                      # list the teaching task instructions
+omniedu chat --model 4B --base-url http://127.0.0.1:8000/v1 --text "..."
+
+bash training/run_training.sh 9b --dry-run         # render the SFT config without starting
+```
+
+The code is licensed under Apache-2.0; the model weights and the dataset keep their own licences. Benchmark evaluation code is not part of this repository yet.
+
 ## Intended use and limitations
 
 OmniEdu supports research, educational prototypes, and teacher-assistance tools. Benchmark performance does not establish classroom learning gains. Models can give incorrect answers or unsuitable guidance; educators should review outputs before consequential use. The paper discusses evaluation coverage, multimodal limitations, and deployment considerations in more detail.
