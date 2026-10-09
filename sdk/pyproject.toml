@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omniedu"
+version = "0.1.0rc1"
+description = "Official toolkit for the Omni-Edu K-12 learning and teaching models (4B / 9B / 27B)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Omni-Edu contributors" }]
+keywords = ["education", "k-12", "llm", "multimodal", "tutoring", "omniedu"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education",
+]
+
+# The core install only covers the remote-endpoint path.  Local inference and
+# Hub downloads are opt-in extras so that "connect to a running vLLM server"
+# stays a small install.
+dependencies = [
+    "pillow>=9.0",
+    "openai>=1.30",
+]
+
+[project.optional-dependencies]
+# `accelerate` is required by the local backend: it loads the checkpoint with
+# device_map="auto" so a 4B/9B/27B model lands on the available GPUs.
+hub = ["huggingface_hub>=0.23"]
+transformers = ["torch>=2.2", "transformers>=4.44", "accelerate>=0.30"]
+dev = ["pytest>=7.0", "build"]
+
+[project.scripts]
+omniedu = "omniedu.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/haolpku/Omni-Edu"
+Repository = "https://github.com/haolpku/Omni-Edu"
+Issues = "https://github.com/haolpku/Omni-Edu/issues"
+"Model weights" = "https://huggingface.co/OpenDCAI"
+"Instruction data" = "https://huggingface.co/datasets/OpenDCAI/Omni-Edu"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+omniedu = ["tasks.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = ["error::DeprecationWarning:omniedu.*"]
